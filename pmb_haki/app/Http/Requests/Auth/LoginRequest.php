@@ -49,6 +49,20 @@ class LoginRequest extends FormRequest
             ]);
         }
 
+            // Check if the user's account is verified
+    $user = Auth::user();
+
+    if ($user->status === 'unverified') {
+        // Log out the unverified user
+        Auth::logout();
+
+        // Throw a validation error
+        throw ValidationException::withMessages([
+            'email' => 'Your account has not been verified. Please check your email for verification instructions.',
+        ]);
+    }
+
+
         RateLimiter::clear($this->throttleKey());
     }
 
