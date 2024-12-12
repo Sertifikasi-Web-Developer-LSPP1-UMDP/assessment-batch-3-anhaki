@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('role', ['user', 'admin'])->default('user');
-            $table->enum('status', ['verified', 'unverified'])->default('unverified');        
+            $table->enum('roles', ['user', 'admin'])->default('user');
+            $table->enum('status', ['verified', 'unverified', 'rejected'])->default('unverified');        
             $table->boolean('is_mahasiswa')->default(false);
             $table->rememberToken();
             $table->timestamps();

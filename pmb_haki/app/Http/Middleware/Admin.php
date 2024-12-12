@@ -16,20 +16,31 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!Auth::check()){
+        if (!Auth::check()) {
             return redirect()->route('login');
         }
 
-        $userRole=Auth::user()->role();
+        $userRole = Auth::user()->roles;
+        $isMahasiswa = Auth::user()->is_mahasiswa;
+        // $isMahasiswa = Auth::user()->is_mahasiswa();
 
-        if($userRole === 'user'){
-            return redirect()->route('dashboard');
-        } 
+        if ($userRole == 'user') {
+            if (!$isMahasiswa) {
+                return redirect('/pendaftaran');
+            }
 
-        if($userRole === 'admin'){
+            return redirect('/');
+        }
+
+        if ($userRole == 'admin') {
+            // if (!$isMahasiswa) {
+            //     return redirect('/pendaftaran');
+            // }
+
             return $next($request);
         }
-        
+
+
         return $next($request);
     }
 }
