@@ -1,16 +1,18 @@
 <?php
 
 use App\Http\Controllers\AdmHomeController;
+use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VerifAkunController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified', 'admin'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified', 'admin'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -20,9 +22,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Route::middleware(['auth', 'verified', 'admin'])->group(function () {
-//     Route::get('/dashboard', [AdmHomeController::class, 'index'])->name('dashboard');
-// });
+Route::middleware(['auth', 'verified', 'admin'])->group(function () {
+    Route::get('/dashboard', [AdmHomeController::class, 'index'])->name('dashboard');
+    Route::get('/verifakun', [VerifAkunController::class, 'index'])->name('verifakun');
+    Route::patch('/user/{id}/toggle-status', [VerifAkunController::class, 'toggleStatus'])->name('user.toggleStatus');
+
+    Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran');
+
+});
 
 
 require __DIR__ . '/auth.php';
