@@ -16,7 +16,7 @@
     @include('components.sidebar')
 
     <div class="md:pl-64 pt-20 pl-4 pr-4 pb-4 text-sm">
-        <div class="bg-white p-4 rounded-lg divide-y-2 divide-solid shadow-md">
+        <div class="bg-white rounded-lg divide-y-2 divide-solid shadow-md overflow-hidden">
             @yield('content')
         </div>
     </div>

@@ -26,10 +26,12 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('/dashboard', [AdmHomeController::class, 'index'])->name('dashboard');
     Route::get('/verifakun', [VerifAkunController::class, 'index'])->name('verifakun');
     Route::patch('/user/{id}/toggle-status', [VerifAkunController::class, 'toggleStatus'])->name('user.toggleStatus');
-
-    Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran');
-
 });
+
+Route::middleware(['auth', 'verified', 'nonMahasiswa'])->group(function () {
+    Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran');
+});
+
 
 
 require __DIR__ . '/auth.php';

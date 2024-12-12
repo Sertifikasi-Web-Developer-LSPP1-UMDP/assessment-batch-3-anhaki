@@ -1,6 +1,6 @@
-<nav class="bg-red border-gray-200 dark:bg-gray-900 dark:border-gray-700 shadow-md mb-4 px-10">
+<nav class="bg-red border-gray-200 dark:bg-gray-900 dark:border-gray-700 shadow-md mb-4 px-10 bg-white">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-8">
-        <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="https://mdp.ac.id/mdp2020/wp-content/uploads/2021/07/logo-umdp-1-300x248-2.png" class="h-24"
                 alt="MDP Logo" />
         </a>
@@ -37,19 +37,18 @@
                 @auth
                     @if (Auth::user()->roles == 'user' && Auth::user()->is_mahasiswa == false)
                         <li>
-                            <a href="/register"
-                                class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                            <a href="/pendaftaran"
+                                class="block md:bg-red-800 py-2 px-3 text-gray-900 md:text-white rounded hover:bg-gray-100 md:hover:bg-gray-400 md:border-0 md:hover:text-black dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                                 Daftar
                             </a>
                         </li>
                     @endif
 
-                    <li>
+                    <li class="flex items-center">
                         <form action="{{ route('logout') }}" method="POST"
-                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                            class="block py-2 px-3 text-red-800 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                             @csrf
-                            <button type="submit"
-                                class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                            <button type="submit" class="">
                                 Logout
                             </button>
                         </form>
@@ -57,11 +56,11 @@
                 @else
                     <li>
                         <a href="/register"
-                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                            class="block md:bg-red-800 py-2 px-3 text-gray-900 md:text-white rounded hover:bg-gray-100 md:hover:bg-gray-400 md:border-0 md:hover:text-black dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                             Daftar
                         </a>
                     </li>
-                    <li>
+                    <li class="flex items-center">
                         <a href="/login"
                             class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                             Login

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class User
+class NonMahasiswa
 {
     /**
      * Handle an incoming request.
@@ -16,26 +16,24 @@ class User
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!Auth::check()){
+        if (!Auth::check()) {
             return redirect()->route('login');
         }
 
-        $userRole = Auth::user()->roles();
-        $userStatus = Auth::user()->status();
-        $isMahasiswa = Auth::user()->is_mahasiswa();
+        $userRole = Auth::user()->roles;
+        $isMahasiswa = Auth::user()->is_mahasiswa;
 
-        if ($userRole === 'user') {
+        if ($userRole == 'user') {
             if (!$isMahasiswa) {
-                return redirect()->route('pendaftaran');
+                return $next($request);
             }
+            return redirect('/');
+        }
 
-            return redirect()->route('/');
+        if ($userRole == 'admin') {
+            return redirect('/');
         }
-    
-        if($userRole === 'admin'){
-            return $next($request);
-        }
-        
+
         return $next($request);
     }
 }

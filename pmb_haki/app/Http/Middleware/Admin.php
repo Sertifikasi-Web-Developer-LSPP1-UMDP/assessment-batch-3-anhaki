@@ -21,22 +21,13 @@ class Admin
         }
 
         $userRole = Auth::user()->roles;
-        $isMahasiswa = Auth::user()->is_mahasiswa;
-        // $isMahasiswa = Auth::user()->is_mahasiswa();
+        // $isMahasiswa = Auth::user()->is_mahasiswa;
 
         if ($userRole == 'user') {
-            if (!$isMahasiswa) {
-                return redirect('/pendaftaran');
-            }
-
             return redirect('/');
         }
 
         if ($userRole == 'admin') {
-            // if (!$isMahasiswa) {
-            //     return redirect('/pendaftaran');
-            // }
-
             return $next($request);
         }
 
