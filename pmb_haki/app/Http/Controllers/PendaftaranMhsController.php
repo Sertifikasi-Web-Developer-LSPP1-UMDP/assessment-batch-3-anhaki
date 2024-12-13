@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Mahasiswa;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PendaftaranMhsController extends Controller
@@ -11,9 +13,22 @@ class PendaftaranMhsController extends Controller
      */
     public function index()
     {
-        return view('pendaftaranmhs');
+        $mahasiswa = Mahasiswa::with('user')->get();
+
+        // return($mahasiswa->first()->user);
+
+        return view('pendaftaranmhs', compact('mahasiswa'));
     }
 
+    public function toggleStatus(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->mhs_status = $request->input('mhs_status');
+        $user->save();
+
+        return redirect()->back()->with('success', 'Status berhasil diperbarui.');
+    }
     /**
      * Show the form for creating a new resource.
      */

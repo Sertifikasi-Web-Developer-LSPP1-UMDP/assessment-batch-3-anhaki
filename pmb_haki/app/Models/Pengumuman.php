@@ -20,6 +20,7 @@ class Pengumuman extends Model
 
     // Kolom yang dapat diisi
     protected $fillable = [
+        'user_id',
         'judul',
         'deskripsi',
         'gambar',

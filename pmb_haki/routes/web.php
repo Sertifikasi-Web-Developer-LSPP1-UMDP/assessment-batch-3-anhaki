@@ -34,6 +34,7 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::delete('/pengumuman/{id}', [PengumumanController::class, 'destroy'])->name('pengumuman.destroy');
 
     Route::get('/pendaftaranmhs', [PendaftaranMhsController::class, 'index'])->name('pendaftaranmhs.index');
+    Route::patch('/mahasiswa/{id}/toggle-status', [PendaftaranMhsController::class, 'toggleStatus'])->name('mahasiswa.toggleStatus');
 });
 
 Route::middleware(['auth', 'verified', 'nonMahasiswa'])->group(function () {

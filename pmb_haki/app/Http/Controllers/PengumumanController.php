@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pengumuman;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class PengumumanController extends Controller
@@ -29,6 +30,7 @@ class PengumumanController extends Controller
             }
 
             Pengumuman::create([
+                'user_id' => Auth::id(),
                 'judul' => $request->judul,
                 'deskripsi' => $request->deskripsi,
                 'gambar' => $path,

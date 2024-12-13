@@ -56,8 +56,12 @@
 
     <div class="w-10/12 m-auto mt-8">
         <div class="text-center p-6">
-            <h2 class="text-4xl font-extrabold">Pengumuman Penting</h2>
-            <p class="mt-2 text-lg">Informasi penting yang untuk MDPeople!</p>
+            <h2 class="text-4xl font-extrabold">Informasi & Pengumuman</h2>
+            @if (count($pengumuman) != 0)
+                <p class="mt-2 text-lg">Informasi penting yang untuk MDPeople!</p>
+            @else
+            <p class="mt-2 text-lg text-red-800">Belum ada pengumuman tersedia</p>
+            @endif
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             @foreach ($pengumuman as $item)
@@ -109,18 +113,6 @@
             </div>
         </div>
     </div>
-
-    <button class="me-2 card" data-id="{{ $item->id }}" data-judul="{{ $item->judul }}"
-        data-deskripsi="{{ $item->deskripsi }}" data-gambar="{{ $item->gambar }}" data-modal-target="detail-modal"
-        data-modal-toggle="detail-modal">
-        <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg" class="fill-white h-6">
-            <path
-                d="m11.998 5c-4.078 0-7.742 3.093-9.853 6.483-.096.159-.145.338-.145.517s.048.358.144.517c2.112 3.39 5.776 6.483 9.854 6.483 4.143 0 7.796-3.09 9.864-6.493.092-.156.138-.332.138-.507s-.046-.351-.138-.507c-2.068-3.403-5.721-6.493-9.864-6.493zm8.413 7c-1.837 2.878-4.897 5.5-8.413 5.5-3.465 0-6.532-2.632-8.404-5.5 1.871-2.868 4.939-5.5 8.404-5.5 3.518 0 6.579 2.624 8.413 5.5zm-8.411-4c2.208 0 4 1.792 4 4s-1.792 4-4 4-4-1.792-4-4 1.792-4 4-4zm0 1.5c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5z"
-                fill-rule="nonzero" />
-        </svg>
-    </button>
-
 
     @include('layouts.footer')
 

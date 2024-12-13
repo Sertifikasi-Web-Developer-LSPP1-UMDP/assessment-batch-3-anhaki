@@ -39,8 +39,8 @@
                                 {{-- Btn detail --}}
                                 <button class="me-2 detail-button" data-id="{{ $item->id }}"
                                     data-judul="{{ $item->judul }}" data-deskripsi="{{ $item->deskripsi }}"
-                                    data-gambar="{{ $item->gambar }}" data-modal-target="detail-modal"
-                                    data-modal-toggle="detail-modal">
+                                    data-gambar="{{ $item->gambar }}" data-made="{{ $item->user->name }}"
+                                    data-modal-target="detail-modal" data-modal-toggle="detail-modal">
                                     <svg clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round"
                                         stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
                                         class="fill-white h-6">
@@ -171,6 +171,9 @@
                     <img id="modal-gambar" class="hidden object-contain rounded-md w-full h-auto"
                         alt="Gambar Detail">
                     <p id="modal-deskripsi" class="text-base leading-relaxed text-black mt-0 dark:text-gray-400"></p>
+                </div>
+                <div class="md:ms-5 ms-6 mb-3 bg-red-800 inline-block text-white p-1 px-2 rounded-md">
+                    Made by <span class="font-bold" id="modal-made"></span>
                 </div>
             </div>
         </div>
@@ -425,10 +428,12 @@
             button.addEventListener('click', () => {
                 const judul = button.getAttribute('data-judul');
                 const deskripsi = button.getAttribute('data-deskripsi');
+                const made = button.getAttribute('data-made');
                 const gambar = button.getAttribute('data-gambar');
 
                 document.getElementById('modal-judul').textContent = judul;
                 document.getElementById('modal-deskripsi').textContent = deskripsi;
+                document.getElementById('modal-made').textContent = made;
 
                 const imgElement = document.getElementById('modal-gambar');
                 if (gambar) {
