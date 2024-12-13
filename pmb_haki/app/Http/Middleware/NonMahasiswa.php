@@ -21,10 +21,10 @@ class NonMahasiswa
         }
 
         $userRole = Auth::user()->roles;
-        $isMahasiswa = Auth::user()->is_mahasiswa;
+        $mhsStatus = Auth::user()->mhs_status;
 
         if ($userRole == 'user') {
-            if (!$isMahasiswa) {
+            if ($mhsStatus === "unregistered") {
                 return $next($request);
             }
             return redirect('/');

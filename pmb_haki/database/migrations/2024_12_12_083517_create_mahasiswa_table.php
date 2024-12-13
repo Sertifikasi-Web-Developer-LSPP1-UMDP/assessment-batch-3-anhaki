@@ -21,7 +21,6 @@ return new class extends Migration {
             $table->string('asal_sma'); // Field baru
             $table->decimal('nilai_ijazah', 5, 2); // Field baru dengan presisi
             $table->string('foto')->nullable();
-            $table->enum('reg_status', ['verified', 'unverified', 'rejected'])->default('unverified');        
             $table->timestamps();
         });
     }

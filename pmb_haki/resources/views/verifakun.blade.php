@@ -1,46 +1,73 @@
-@extends('layouts.admin')
-@section('title', 'Daftar Voucher')
-@section('style')
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
-@endsection
+<!DOCTYPE html>
+<html lang="en" class="w-full h-full bg-gray-200">
 
-@section('content')
-    <div class="text-center text-white bg-red-800 p-6">
-        <h1 class="text-4xl font-extrabold">Verifikasi Akun User</h1>
-    </div>
-    <div class="p-6">
-        <table id="tableAkun" class="min-w-full bg-white border border-gray-200">
-            <thead>
-                <tr class="bg-gray-200">
-                    <th class="px-6 py-3 text-left text-sm font-bold text-gray-700">Nama</th>
-                    <th class="px-6 py-3 text-left text-sm font-bold text-gray-700">Email</th>
-                    <th class="px-6 py-3 text-left text-sm font-bold text-gray-700">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($users as $user)
-                    <tr class="border-b">
-                        <td class="px-6 py-4 text-sm text-gray-600">{{ $user->name }}</td>
-                        <td class="px-6 py-4 text-sm text-gray-600">{{ $user->email }}</td>
-                        <td class="px-6 py-4 text-sm text-gray-600">
-                            <form action="{{ route('user.toggleStatus', $user->id) }}" method="post" class="inline-block">
-                                @csrf
-                                @method('PATCH')
-                                <select name="status" onchange="this.form.submit()"
-                                    class="p-2 border border-gray-300 rounded">
-                                    <option value="verified" {{ $user->status === 'verified' ? 'selected' : '' }}>
-                                        Verified</option>
-                                    <option value="unverified" {{ $user->status === 'unverified' ? 'selected' : '' }}>
-                                        Unverified</option>
-                                    <option value="rejected" {{ $user->status === 'rejected' ? 'selected' : '' }}>
-                                        Rejected</option>
-                                </select>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>Verifikasi Akun</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+</head>
+
+<body>
+    @include('components.sidebar')
+
+    <div class="sm:pl-64 pt-20 pl-4 pr-4 pb-4 text-sm">
+        <!-- Tabs Navigation -->
+        <div class="flex space-x-1 border-b">
+            @foreach (['unverified' => 'Akun Pending', 'verified' => 'Akun diterima', 'rejected' => 'Akun ditolak'] as $status => $title)
+                <button data-tab="{{ $status }}" class="tab-button py-2 px-4 text-gray-600 hover:text-white hover:bg-red-800 focus:outline-none">
+                    {{ $title }}
+                </button>
+            @endforeach
+        </div>
+
+        <!-- Tab Content -->
+        @foreach (['unverified', 'verified', 'rejected'] as $status)
+            <div id="tab-{{ $status }}" class="tab-content hidden">
+                <div class="bg-white rounded-lg divide-y-2 divide-solid shadow-md overflow-hidden mt-6">
+                    <div class="text-center text-white bg-red-800 p-6">
+                        <h1 class="text-3xl font-extrabold">{{ ['unverified' => 'Akun Pending', 'verified' => 'Akun diterima', 'rejected' => 'Akun ditolak'][$status] }}</h1>
+                    </div>
+                    <div class="p-6 overflow-x-scroll">
+                        <table id="table{{ ucfirst($status) }}" class="min-w-full bg-white border border-gray-200">
+                            <thead>
+                                <tr class="bg-gray-200">
+                                    <th class="px-6 py-3 text-left text-sm font-bold text-gray-700">Nama</th>
+                                    <th class="px-6 py-3 text-left text-sm font-bold text-gray-700">Email</th>
+                                    <th class="px-6 py-3 text-left text-sm font-bold text-gray-700">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($users as $user)
+                                    @if ($user->status === $status)
+                                        <tr class="border-b">
+                                            <td class="px-6 py-4 text-sm text-gray-600">{{ $user->name }}</td>
+                                            <td class="px-6 py-4 text-sm text-gray-600">{{ $user->email }}</td>
+                                            <td class="px-6 py-4 text-sm text-gray-600">
+                                                <form action="{{ route('user.toggleStatus', $user->id) }}" method="post"
+                                                    class="inline-block">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <select name="status" onchange="this.form.submit()"
+                                                        class="p-2 border border-gray-300 rounded">
+                                                        <option value="verified" {{ $status === 'verified' ? 'selected' : '' }}>Verified</option>
+                                                        <option value="unverified" {{ $status === 'unverified' ? 'selected' : '' }}>Pending</option>
+                                                        <option value="rejected" {{ $status === 'rejected' ? 'selected' : '' }}>Rejected</option>
+                                                    </select>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </div>
 
     @if (session('success'))
@@ -59,9 +86,7 @@
             </div>
         </div>
     @endif
-@endsection
 
-@section('script')
     @if (session('success'))
         <script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -78,6 +103,32 @@
             modal.classList.add('hidden');
             modal.classList.remove('flex');
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetTab = button.getAttribute('data-tab');
+
+                    tabContents.forEach(content => {
+                        content.classList.add('hidden');
+                    });
+
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('bg-red-800', 'text-white');
+                        btn.classList.add('text-gray-600');
+                    });
+
+                    document.getElementById(`tab-${targetTab}`).classList.remove('hidden');
+                    button.classList.add('bg-red-800', 'text-white');
+                });
+            });
+
+            // Activate the first tab by default
+            tabButtons[0].click();
+        });
     </script>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
@@ -85,7 +136,12 @@
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
     <script>
         $(document).ready(function() {
-            $('#tableAkun').DataTable();
+            ['Unverified', 'Verified', 'Rejected'].forEach(status => {
+                $(`#table${status}`).DataTable();
+            });
         });
     </script>
-@endsection
+
+</body>
+
+</html>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdmHomeController;
 use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\PendaftaranMhsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VerifAkunController;
 use App\Http\Controllers\WelcomeController;
@@ -31,6 +32,8 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::post('/pengumuman', [PengumumanController::class, 'store'])->name('pengumuman.store');
     Route::patch('/pengumuman/{id}', [PengumumanController::class, 'update'])->name('pengumuman.update');
     Route::delete('/pengumuman/{id}', [PengumumanController::class, 'destroy'])->name('pengumuman.destroy');
+
+    Route::get('/pendaftaranmhs', [PendaftaranMhsController::class, 'index'])->name('pendaftaranmhs.index');
 });
 
 Route::middleware(['auth', 'verified', 'nonMahasiswa'])->group(function () {

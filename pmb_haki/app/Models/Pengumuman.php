@@ -13,6 +13,11 @@ class Pengumuman extends Model
     // Nama tabel (opsional jika tabel bernama 'pengumumen')
     protected $table = 'pengumuman';
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     // Kolom yang dapat diisi
     protected $fillable = [
         'judul',

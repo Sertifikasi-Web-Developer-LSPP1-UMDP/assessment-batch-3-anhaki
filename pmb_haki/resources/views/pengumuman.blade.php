@@ -14,7 +14,7 @@
 <body>
     @include('components.sidebar')
 
-    <div class="md:pl-64 pt-20 pl-4 pr-4 pb-4 text-sm">
+    <div class="sm:pl-64 pt-20 pl-4 pr-4 pb-4 text-sm">
         <div class="mb-4 flex justify-between items-center">
             <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
                 class="block text-white bg-red-800 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -25,7 +25,7 @@
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-64 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
         </div>
         <div id="announcement-container"
-            class="{{ $pengumuman->isEmpty() ? '' : 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4' }}">
+            class="{{ $pengumuman->isEmpty() ? '' : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4' }}">
             @if ($pengumuman->isEmpty())
                 <p id="no-announcement" class="text-gray-500 text-center w-full">Belum ada pengumuman.</p>
             @else

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
 use App\Models\Registration;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -47,8 +48,9 @@ class PendaftaranController extends Controller
         $validated['user_id'] = Auth::id();
 
         Mahasiswa::create($validated);
+        Auth::user()->update(['mhs_status' => 'pending']);
 
-        return redirect()->route('pendaftaran.index')->with('success', 'Pendaftaran berhasil.');
+        return redirect()->route('/')->with('success', 'Pendaftaran berhasil.');
     }
 
     /**

@@ -13,9 +13,14 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasRoles;
 
-    public function registration()
+    public function mahasiswa()
     {
         return $this->hasOne(Mahasiswa::class);
+    }
+
+    public function pengumuman()
+    {
+        return $this->hasOne(Pengumuman::class);
     }
 
     /**
@@ -27,9 +32,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',
+        // 'roles',
         'status',
-        'is_mahasiswa',
+        'mhs_status',
     ];
 
     /**

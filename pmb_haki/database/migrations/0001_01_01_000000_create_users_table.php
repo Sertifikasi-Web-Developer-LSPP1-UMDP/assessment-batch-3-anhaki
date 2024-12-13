@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -18,8 +17,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('roles', ['user', 'admin'])->default('user');
-            $table->enum('status', ['verified', 'unverified', 'rejected'])->default('unverified');        
-            $table->boolean('is_mahasiswa')->default(false);
+            $table->enum('status', ['verified', 'unverified', 'rejected'])->default('unverified');
+            $table->enum('mhs_status', ['accepted', 'unregistered', 'rejected', 'pending'])->default('unregistered');
             $table->rememberToken();
             $table->timestamps();
         });
