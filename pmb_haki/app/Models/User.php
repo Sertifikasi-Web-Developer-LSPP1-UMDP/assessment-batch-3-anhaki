@@ -13,6 +13,11 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasRoles;
 
+    public function registration()
+    {
+        return $this->hasOne(Mahasiswa::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

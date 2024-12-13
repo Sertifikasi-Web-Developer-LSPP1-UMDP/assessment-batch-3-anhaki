@@ -4,31 +4,33 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('registrations', function (Blueprint $table) {
+        Schema::create('mahasiswas', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');   
             $table->string('nama');
-            $table->string('email')->unique();
             $table->string('telepon');
             $table->text('alamat');
             $table->date('tanggal_lahir');
             $table->string('program_studi');
-            $table->string('foto')->nullable(); // Foto bisa kosong jika belum diupload
+            $table->string('asal_sma'); // Field baru
+            $table->decimal('nilai_ijazah', 5, 2); // Field baru dengan presisi
+            $table->string('foto')->nullable();
+            $table->enum('reg_status', ['verified', 'unverified', 'rejected'])->default('unverified');        
             $table->timestamps();
         });
-        }
+    }
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('registrations');
+        Schema::dropIfExists('mahasiswas');
     }
 };

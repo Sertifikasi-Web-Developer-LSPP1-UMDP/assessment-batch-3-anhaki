@@ -34,7 +34,9 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'verified', 'nonMahasiswa'])->group(function () {
-    Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran');
+    Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran.index');
+    // Route::get('/pendaftaran', [PendaftaranController::class, 'create'])->name('pendaftaran.create');
+    Route::post('/pendaftaran', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
 });
 
 

@@ -167,7 +167,7 @@
                     </button>
                 </div>
                 <!-- Modal Body -->
-                <div class="p-6 md:p-5 grid grid-cols-2 gap-4">
+                <div class="p-6 md:p-5 grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
                     <img id="modal-gambar" class="hidden object-contain rounded-md w-full h-auto"
                         alt="Gambar Detail">
                     <p id="modal-deskripsi" class="text-base leading-relaxed text-black mt-0 dark:text-gray-400"></p>
