@@ -4,11 +4,11 @@ use App\Http\Controllers\AdmHomeController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VerifAkunController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PengumumanController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [WelcomeController::class, 'index']);
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -26,6 +26,11 @@ Route::middleware(['auth', 'verified', 'admin'])->group(function () {
     Route::get('/dashboard', [AdmHomeController::class, 'index'])->name('dashboard');
     Route::get('/verifakun', [VerifAkunController::class, 'index'])->name('verifakun');
     Route::patch('/user/{id}/toggle-status', [VerifAkunController::class, 'toggleStatus'])->name('user.toggleStatus');
+
+    Route::get('/pengumuman', [PengumumanController::class, 'index'])->name('pengumuman.index');
+    Route::post('/pengumuman', [PengumumanController::class, 'store'])->name('pengumuman.store');
+    Route::patch('/pengumuman/{id}', [PengumumanController::class, 'update'])->name('pengumuman.update');
+    Route::delete('/pengumuman/{id}', [PengumumanController::class, 'destroy'])->name('pengumuman.destroy');
 });
 
 Route::middleware(['auth', 'verified', 'nonMahasiswa'])->group(function () {

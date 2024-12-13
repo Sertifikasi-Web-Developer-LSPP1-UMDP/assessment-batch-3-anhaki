@@ -54,7 +54,7 @@
                     </svg>
                     <h3 class="text-lg font-semibold text-gray-700">{{ session('success') }}</h3>
                     <button onclick="closeSuccessModal()"
-                        class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Close</button>
+                        class="mt-4 bg-red-800 text-white px-4 py-2 rounded">Close</button>
                 </div>
             </div>
         </div>

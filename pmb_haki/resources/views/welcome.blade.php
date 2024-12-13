@@ -5,79 +5,64 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Daftar Voucher</title>
+    <title>PMB UMDP</title>
 
-    <!-- Fonts and Styles -->
+    <!-- Fonts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
 </head>
 
 <body class="bg-gray-100">
     @include('layouts.nav')
+    <div class="border border-gray-200 w-10/12 m-auto shadow-lg overflow-hidden">
+        @include('layouts.carousel')
+    </div>
 
-    <div class="w-10/12 m-auto mt-6 rounded-lg shadow-lg border border-gray-200 overflow-hidden bg-white">
+    <div class="w-10/12 m-auto mt-4 rounded-lg shadow-lg border border-gray-200 overflow-hidden bg-white">
         <div class="text-center text-white bg-red-800 p-6">
-            <h1 class="text-4xl font-extrabold">Verifikasi Akun User</h1>
+            <h2 class="text-4xl font-extrabold">Penerimaan Mahasiswa Baru Universitas MDP</h2>
+            <p class="mt-2 text-lg">Ayo daftar dan buka kesempatan untuk masa depan yang cerah!</p>
         </div>
         <div class="p-6">
-            <table id="tableAkun" class="min-w-full bg-white border border-gray-200">
-                <thead>
-                    <tr class="bg-gray-200">
-                        <th class="px-6 py-3 text-left text-sm font-bold text-gray-700">Nama</th>
-                        <th class="px-6 py-3 text-left text-sm font-bold text-gray-700">Email</th>
-                        <th class="px-6 py-3 text-left text-sm font-bold text-gray-700">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($users as $user)
-                        <tr class="border-b">
-                            <td class="px-6 py-4 text-sm text-gray-600">{{ $user->name }}</td>
-                            <td class="px-6 py-4 text-sm text-gray-600">{{ $user->email }}</td>
-                            <td class="px-6 py-4 text-sm text-gray-600">
-                                <form action="{{ route('user.toggleStatus', $user->id) }}" method="post" class="inline-block">
-                                    @csrf
-                                    @method('PATCH')
-                                    <select name="status" onchange="this.form.submit()" class="p-2 border border-gray-300 rounded">
-                                        <option value="verified" {{ $user->status === 'verified' ? 'selected' : '' }}>Verified</option>
-                                        <option value="unverified" {{ $user->status === 'unverified' ? 'selected' : '' }}>Unverified</option>
-                                        <option value="rejected" {{ $user->status === 'rejected' ? 'selected' : '' }}>Rejected</option>
-                                    </select>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+            <p>Universitas MDP membuka peluang emas bagi Anda yang ingin meraih masa depan gemilang! Dengan program
+                pendidikan berkualitas, fasilitas modern, dan dosen berpengalaman, kami berkomitmen mencetak lulusan
+                unggul yang siap bersaing di era global. Jangan lewatkan kesempatan ini—daftarkan diri Anda sekarang dan
+                mulailah perjalanan menuju impian Anda bersama Universitas MDP!</p>
+            @auth
+                <a href="/pendaftaran" class="">
+                    <button
+                        class="bg-red-800 text-white p-2 block m-auto px-6 font-bold text-lg rounded-sm mt-6 w-full md:w-auto">Daftar</button>
+                </a>
+            @else
+                <a href="/register" class="">
+                    <button
+                        class="bg-red-800 text-white p-2 block m-auto px-6 font-bold text-lg rounded-sm mt-6 w-full md:w-auto">Daftar</button>
+                </a>
+            @endauth
         </div>
     </div>
 
-    @if (session('success'))
-        <div id="success-modal" class="fixed inset-0 flex items-center justify-center bg-black/40">
-            <div class="bg-white p-6 rounded-lg shadow-lg">
-                <div class="text-center">
-                    <svg class="w-12 h-12 text-green-500 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <h3 class="text-lg font-semibold text-gray-700">{{ session('success') }}</h3>
-                    <button onclick="closeSuccessModal()" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded">Close</button>
-                </div>
-            </div>
+    <div class="w-10/12 m-auto mt-8">
+        <div class="text-center p-6">
+            <h2 class="text-4xl font-extrabold">Pengumuman Penting</h2>
+            <p class="mt-2 text-lg">Informasi penting yang untuk MDPeople!</p>
         </div>
-    @endif
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            @foreach ($pengumuman as $item)
+                <div class="h-72 w-full shadow-md border border-gray-200 rounded-lg overflow-hidden bg-no-repeat bg-cover bg-center"
+                    style="background-image: url('{{ asset('storage/' . $item->gambar) }}');">
+                    <div class="h-full w-full flex flex-col justify-between">
+                        <h4 class="bg-red-800 text-white p-3 text-sm font-bold truncate ...">{{ $item->judul }}
+                        </h4>
+                        <h3 class="mt-auto text-center text-sm p-3 font-bold bg-white">
+                            {{ $item->created_at->format('d F Y') }}</h3>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+    @include('layouts.footer')
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#tableAkun').DataTable();
-        });
-
-        function closeSuccessModal() {
-            const modal = document.getElementById('success-modal');
-            modal.classList.add('hidden');
-        }
-    </script>
+    <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
 </body>
 
 </html>
