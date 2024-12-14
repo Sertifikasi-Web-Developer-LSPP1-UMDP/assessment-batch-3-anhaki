@@ -17,13 +17,12 @@
     <div class="w-10/12 m-auto mt-8 rounded-lg shadow-lg border border-gray-200 overflow-hidden">
         <div class="text-center text-white bg-red-800 p-6">
             <h2 class="text-4xl font-extrabold">Formulir Pendaftaran Mahasiswa Baru</h2>
-            <p class="mt-2 text-lg">Silakan isi data di bawah ini untuk mendaftar menjadi mahasiswa Universitas MDP</p>
+            <p class="mt-2 text-lg">Silahkan isi data di bawah ini untuk mendaftar menjadi mahasiswa Universitas MDP</p>
         </div>
 
         <div class="p-6">
             <form action="/pendaftaran" method="POST" enctype="multipart/form-data" class="space-y-4">
                 @csrf
-
                 <!-- Nama Lengkap -->
                 <div>
                     <label for="nama" class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
@@ -50,8 +49,7 @@
                 <div>
                     <label for="alamat" class="block text-sm font-medium text-gray-700">Alamat</label>
                     <textarea name="alamat" id="alamat" rows="3"
-                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-red-800 focus:ring-red-800 @error('alamat') border-red-500 @enderror"
-                    >{{ old('alamat') }}</textarea>
+                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-red-800 focus:ring-red-800 @error('alamat') border-red-500 @enderror">{{ old('alamat') }}</textarea>
                     @error('alamat')
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
@@ -95,8 +93,7 @@
                     <label for="program_studi" class="block text-sm font-medium text-gray-700">Program Studi
                         Pilihan</label>
                     <select name="program_studi" id="program_studi"
-                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-red-800 focus:ring-red-800 @error('program_studi') border-red-500 @enderror"
-                    >
+                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-red-800 focus:ring-red-800 @error('program_studi') border-red-500 @enderror">
                         <option value="">-- Pilih Program Studi --</option>
                         <option value="Teknik Informatika"
                             {{ old('program_studi') == 'Teknik Informatika' ? 'selected' : '' }}>Teknik
@@ -114,24 +111,11 @@
                     @enderror
                 </div>
 
-                <!-- Upload Foto Mahasiswa -->
-                <div>
-                    <label for="foto" class="block text-sm font-medium text-gray-700">Upload Foto Mahasiswa
-                        (JPEG/PNG)</label>
-                    <input type="file" name="foto" id="foto" accept="image/jpeg, image/png"
-                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-red-800 focus:ring-red-800 @error('foto') border-red-500 @enderror"
-                    >
-                    @error('foto')
-                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-
                 <!-- Submit Button -->
                 <div class="text-center">
                     <button type="submit"
                         class="bg-red-800 text-white px-6 py-2 font-bold text-lg rounded-sm w-full md:w-auto">Daftar
-                        Sekarang</button>
+                    </button>
                 </div>
             </form>
         </div>

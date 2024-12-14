@@ -23,6 +23,5 @@ class Mahasiswa extends Model
         'program_studi',
         'asal_sma',
         'nilai_ijazah',
-        'foto',
     ];
 }

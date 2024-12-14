@@ -38,12 +38,7 @@ class PendaftaranController extends Controller
             'program_studi' => 'required|string',
             'asal_sma' => 'required|string|max:255',
             'nilai_ijazah' => 'required|numeric|between:0,100',
-            'foto' => 'required|image|mimes:jpeg,png|max:2048',
         ]);
-
-        if ($request->hasFile('foto')) {
-            $validated['foto'] = $request->file('foto')->store('fotos', 'public');
-        }
 
         $validated['user_id'] = Auth::id();
 

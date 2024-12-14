@@ -40,6 +40,8 @@
                                     <th class="px-6 py-3 text-left text-sm font-bold text-gray-700">Alamat</th>
                                     <th class="px-6 py-3 text-left text-sm font-bold text-gray-700">Tanggal Lahir</th>
                                     <th class="px-6 py-3 text-left text-sm font-bold text-gray-700">Program Studi</th>
+                                    <th class="px-6 py-3 text-left text-sm font-bold text-gray-700">Asal SMA</th>
+                                    <th class="px-6 py-3 text-left text-sm font-bold text-gray-700">Nilai Ijazah</th>
                                     <th class="px-6 py-3 text-left text-sm font-bold text-gray-700">Aksi</th>
                                 </tr>
                             </thead>
@@ -52,6 +54,8 @@
                                             <td class="px-6 py-4 text-sm text-gray-600">{{ $mhs->alamat }}</td>
                                             <td class="px-6 py-4 text-sm text-gray-600">{{ $mhs->tanggal_lahir }}</td>
                                             <td class="px-6 py-4 text-sm text-gray-600">{{ $mhs->program_studi }}</td>
+                                            <td class="px-6 py-4 text-sm text-gray-600">{{ $mhs->asal_sma }}</td>
+                                            <td class="px-6 py-4 text-sm text-gray-600">{{ $mhs->nilai_ijazah }}</td>
                                             <td class="px-6 py-4 text-sm text-gray-600">
                                                 <form action="{{ route('mahasiswa.toggleStatus', $mhs->user->id) }}" method="post"
                                                     class="inline-block">

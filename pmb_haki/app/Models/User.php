@@ -20,7 +20,7 @@ class User extends Authenticatable
 
     public function pengumuman()
     {
-        return $this->hasOne(Pengumuman::class);
+        return $this->hasMany(Pengumuman::class);
     }
 
     /**
